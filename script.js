@@ -21,19 +21,12 @@ const weddingConfig = {
   venueName: "UGO Birtok",
   address: "9228 Halászi, Kőhídi utca 11",
   mapsUrl: "https://maps.app.goo.gl/MJSLYEREetqKAMKt9",
-  phone: "+36 30 327 5783",
+  phone: "+36 20 485-0832",
   email: "annaesbence@gmail.com",
   instagram: "@fannigabor",
   instagramUrl: "https://instagram.com/fannigabor",
   hashtag: "Fanni&Gábor Esküvő",
 
-  // Intró: a save the date videó a meghívó előtt, borítóként jelenik meg
-  intro: {
-    enabled: true,          // false = az oldal rögtön a meghívóval nyílik
-    rememberSeen: false,    // true = ugyanabban a böngészőlapban újratöltéskor már nem játssza le újra
-    poster: "images/video-poster.webp"   // a videó háttérképe / előkép
-  },
-  
   // Helyszíni szállás (élő számláló)
   lodging: {
     total: 36,              // ennyi hellyel indul a számláló
@@ -46,6 +39,7 @@ const weddingConfig = {
    az űrlapok "elküldöttnek" látszanak, de nem megy el semmi. */
 const webhooks = {
   rsvp: "",       // visszajelzés (ott leszek / nem tudok jönni)
+  /*music: "",      // zenei kérések* - nem kell*/
   upload: "",     // vendégfotók (fájlfeltöltés)
   message: "",    // vendégüzenetek
   lodging: ""     // helyszíni szállás: "status" (szabad helyek) + "book" (foglalás) – lásd README.md
@@ -61,7 +55,7 @@ const sections = {
   rsvp: true,
   accommodation: true,
   faq: true,
-  saveTheDateVideo: true,   // a videó szekció (a korábbi zenei kérések helyén)
+  musicRequests: true,
   hashtag: true,
   guestUpload: true,
   guestMessages: true,
@@ -81,11 +75,11 @@ const scheduleItems = [
 ];
 
 const infoCards = [
-  { icon: "dress", title: "Öltözet", text: "Elegáns, alkalomhoz illő öltözetet kérünk." },
-  { icon: "gift", title: "Ajándék", text: "Számunkra a legnagyobb ajándék, ha velünk ünnepelsz. Egy borítékba zárt meglepetésnek akkor is örülünk :)" },
-  { icon: "kids", title: "Gyerekek", text: "Szeretettel várjuk a gyerekeket is, de kérjük, felnőtt eseményként gondoljatok az esküvőnkre." },
+  { icon: "dress", title: "Öltözet", text: "Elegáns, alkalomhoz illő öltözet, amelyben kényelmesen ünnepelhettek és táncolhattok velünk hajnalig." },
+  { icon: "gift", title: "Ajándék", text: "Egy borítékba zárt ajándéknak örülnénk a legjobban, de számunkra a legnagyobb boldogság ha velünk ünnepeltek." },
+  { icon: "kids", title: "Gyerekek", text: "Örülünk ha a család legkisebb tagjaival is együtt ünnepelhetünk, így szeretettel várjuk őket is a nagy napra!" },
   { icon: "parking", title: "Parkolás", text: "A helyszínen ingyenes parkolási lehetőség biztosított." },
-  { icon: "bed", title: "Szállás", text: "A helyszínen korlátozott számú szállást tartottunk fenn, a közelben pedig további szálláshelyeket ajánlunk.", link: { href: "#accommodation", label: "Részletek lent" } },
+  { icon: "bed", title: "Szállás", text: "A szállást önköltségen tudja mindenki igénybe venni. A helyszínen korlátozott számú férőhely áll rendelkezésre, de a közelben is tudunk további szállásokat ajánlani.", link: { href: "#accommodation", label: "Részletek lent" } },
   { icon: "phone", title: "Kapcsolat", text: "Kérdés esetén keressetek minket bizalommal az alábbi elérhetőségen:", phone: true }
 ];
 
@@ -106,12 +100,10 @@ const hashtagStrip = ["images/table-amber.webp", "images/IMG_6214.webp", "images
 
 /* Szálláshelyek adatai */
 const hotels = [
-  { name: "Kastély Hotel", distance: "1 km a helyszíntől", address: "1234 Minta város, Minta utca 2.", phone: "+36 30 987 6543",
-    text: "Kényelmes, világos szobák a helyszín közelében.", img: "images/room-1.webp", url: "https://pgapartman.hu", cta: "Weboldal" },
-  { name: "Rózsakert Panzió", distance: "2,5 km a helyszíntől", address: "1234 Minta város, Fő utca 14.", phone: "+36 30 555 1122",
-    text: "Családias hangulatú panzió, gyerekkel érkezőknek is ideális.", img: "images/room-2.webp", url: "https://pgapartman.hu", cta: "Weboldal" },
-  { name: "Belvárosi Apartmanház", distance: "4 km a helyszíntől", address: "1234 Minta város, Fő tér 3.", phone: "+36 30 222 8899",
-    text: "Modern, jól felszerelt apartmanok a városközpontban.", img: "images/room-3.webp", url: "https://pgapartman.hu", cta: "Foglalás" }
+  { name: "Regina Panzió & Étterem Halászi", distance: "1,5 km a helyszíntől", address: "9228 Halászi, Kossuth Lajos utca 122.", phone: "+36 20 312 8676",
+    text: "", img: "images/regina.jpg", url: "https://www.regiapanzio.hu/", cta: "Weboldal" },
+  { name: "Neuhercz Apartmanok - Halászi", distance: "1,2 km a helyszíntől", address: "9228 Halászi, Árpád utca 5", phone: " +36 20 252 9790",
+    text: "", img: "images/neuhercz.jpg", url: "https://www.booking.com/Share-mJK57C", cta: "Weboldal" },
 ];
 
 const faqItems = [
@@ -713,90 +705,11 @@ function initReveal() {
 }
 
 /* -------------------------------------------------------------------------
-   INTRÓ BORÍTÓ — save the date videó
-   - némítva automatikusan indul (a böngészők csak így engedik hang nélkül)
-   - "Tovább a meghívóra" gomb, Esc, vagy a videó vége után magától átvált
-   - ha az automatikus lejátszás le van tiltva, nagy lejátszás gomb jelenik meg
-   ------------------------------------------------------------------------- */
-function initIntro() {
-  const root = document.documentElement, intro = $('#intro');
-  if (!intro) return;
-  const cfg = weddingConfig.intro || {};
-  let seen = false;
-  try { seen = !!cfg.rememberSeen && sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
-
-  const dispose = () => { root.classList.remove('intro-on'); intro.remove(); };
-  if (!cfg.enabled || seen || location.hash.length > 1) { dispose(); return; }   // #rsvp stb. linkeknél nincs intró
-
-  const video = $('#intro-video'), enter = $('#intro-enter'), sound = $('#intro-sound'),
-        playBtn = $('#intro-play'), bar = $('#intro-progress'), label = $('#intro-sound-label');
-  if (cfg.poster) $('#intro-bg').style.backgroundImage = `url("${cfg.poster}")`;
-
-  /* amíg az intró fut, a mögötte lévő oldal nem érhető el billentyűzettel / képernyőolvasóval */
-  const behind = $$('.skip-link, #site-nav, main, .site-footer');
-  behind.forEach((el) => { el.inert = true; });
-
-  let closed = false;
-  const finish = () => {
-    if (closed) return; closed = true;
-    try { video.pause(); } catch (e) {}
-    try { if (cfg.rememberSeen) sessionStorage.setItem('introSeen', '1'); } catch (e) {}
-    behind.forEach((el) => { el.inert = false; });
-    root.classList.remove('intro-on');
-    window.scrollTo(0, 0);
-    intro.classList.add('is-leaving');
-    setTimeout(() => intro.remove(), 1000);
-  };
-
-  enter.addEventListener('click', finish);
-  video.addEventListener('ended', finish);
-  video.addEventListener('error', finish);                       // ha a videó nem tölthető be, ne akadjon el az oldal
-  const srcEl = video.querySelector('source');
-  if (srcEl) srcEl.addEventListener('error', finish);
-  video.addEventListener('timeupdate', () => {
-    if (video.duration) bar.style.transform = `scaleX(${Math.min(1, video.currentTime / video.duration)})`;
-  });
-
-  sound.addEventListener('click', () => {
-    video.muted = !video.muted;
-    const on = !video.muted;
-    sound.setAttribute('aria-pressed', String(on));
-    sound.setAttribute('aria-label', on ? 'Hang kikapcsolása' : 'Hang bekapcsolása');
-    label.textContent = on ? 'Hang ki' : 'Hang be';
-    if (video.paused) video.play().catch(() => {});
-  });
-  playBtn.addEventListener('click', () => { video.play().then(() => { playBtn.hidden = true; }).catch(() => {}); });
-  video.addEventListener('playing', () => { playBtn.hidden = true; });
-
-  document.addEventListener('keydown', (e) => {
-    if (closed) return;
-    if (e.key === 'Escape') { finish(); return; }
-    if (e.key === 'Tab') {                                       // fókusz az intrón belül marad
-      const f = [enter, sound, playBtn].filter((b) => !b.hidden);
-      const first = f[0], last = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-  });
-
-  /* indítás */
-  video.muted = true;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) { playBtn.hidden = false; }
-  else {
-    const p = video.play();
-    if (p && p.catch) p.catch(() => { playBtn.hidden = false; });
-  }
-  enter.focus({ preventScroll: true });
-}
-
-/* -------------------------------------------------------------------------
    INDÍTÁS
    ------------------------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
   applyConfig();
   applySectionToggles();
-  initIntro();
   renderSchedule();
   renderInfo();
   renderGallery();
