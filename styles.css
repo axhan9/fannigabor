@@ -564,7 +564,7 @@ h1,h2,h3,p{ margin-top:0; }
 }
 
 /* Szálláskártyák */
-.hotel-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; }
+.hotel-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:26px; }
 .hotel-card{
   background:var(--paper); border:1px solid var(--line); border-radius:18px; overflow:hidden;
   display:flex; flex-direction:column; box-shadow:0 22px 40px -32px rgba(58,40,35,.55);
@@ -675,82 +675,4 @@ h1,h2,h3,p{ margin-top:0; }
   html{ scroll-behavior:auto; }
   .js .reveal{ opacity:1; transform:none; transition:none; }
   *,*::before,*::after{ animation:none !important; }
-}
-
-/* ==========================================================================
-   INTRÓ BORÍTÓ (save the date videó) — a meghívó előtt jelenik meg
-   ========================================================================== */
-.intro{ display:none; }
-.js .intro{
-  display:flex; align-items:center; justify-content:center;
-  position:fixed; inset:0; z-index:3000; height:100vh; height:100dvh;
-  background:#150C0D; overflow:hidden;
-  opacity:1; transition:opacity .9s ease, visibility 0s linear .9s;
-}
-.intro.is-leaving{ opacity:0; visibility:hidden; pointer-events:none; }
-html.intro-on, html.intro-on body{ overflow:hidden; }
-
-.intro-bg{
-  position:absolute; inset:-60px; background-position:center; background-size:cover;
-  filter:blur(40px) brightness(.5) saturate(1.1); transform:scale(1.1);
-}
-.intro-video{
-  position:relative; z-index:1; width:100%; height:100%;
-  object-fit:contain;                      /* asztali gépen / tableten: teljes kép, középen */
-  background:transparent;
-}
-@media (max-aspect-ratio: 3/5){            /* álló telefon: kitölti a képernyőt */
-  .intro-video{ object-fit:cover; }
-}
-.intro-shade{
-  position:absolute; left:0; right:0; bottom:0; height:38%; z-index:2; pointer-events:none;
-  background:linear-gradient(0deg, rgba(21,12,13,.78), rgba(21,12,13,0));
-}
-.intro-bottom{
-  position:absolute; left:0; right:0; z-index:3;
-  bottom:calc(34px + env(safe-area-inset-bottom));
-  display:flex; justify-content:center; padding:0 20px;
-}
-.intro-enter{ min-height:56px; padding:0 38px; font-size:1.05rem; box-shadow:0 18px 34px -16px rgba(0,0,0,.7); }
-.intro-enter:hover span{ transform:translateX(4px); }
-.intro-enter span{ transition:transform .3s; }
-
-.intro-sound{
-  position:absolute; z-index:3;
-  top:calc(16px + env(safe-area-inset-top)); right:calc(16px + env(safe-area-inset-right));
-  display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 16px;
-  border-radius:999px; border:1px solid rgba(255,251,245,.55);
-  background:#2B1719; color:#FFFBF5; font:inherit; font-size:.92rem; font-weight:500;
-  transition:background .25s;
-}
-.intro-sound:hover{ background:var(--wine); }
-.intro-sound svg{ width:22px; height:22px; }
-.intro-sound .snd-on{ display:none; }
-.intro-sound[aria-pressed="true"] .snd-on{ display:inline; }
-.intro-sound[aria-pressed="true"] .snd-off{ display:none; }
-
-.intro-play{
-  position:absolute; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%);
-  width:88px; height:88px; border-radius:50%; border:1.5px solid rgba(255,251,245,.8);
-  background:#2B1719; color:#FFFBF5; display:flex; align-items:center; justify-content:center;
-  transition:background .25s, transform .25s;
-}
-.intro-play:hover{ background:var(--wine); transform:translate(-50%,-50%) scale(1.06); }
-.intro-play svg{ width:38px; height:38px; margin-left:4px; }
-.intro-play[hidden]{ display:none; }
-
-.intro-progress{ position:absolute; left:0; right:0; bottom:0; height:4px; z-index:3; background:rgba(255,251,245,.22); }
-.intro-progress span{ display:block; height:100%; width:100%; background:var(--peach); transform:scaleX(0); transform-origin:left; }
-
-/* ---------- Videó szekció (a zenei kérések helyén) ---------- */
-.video-frame{
-  max-width:380px; margin:0 auto; position:relative; background:#150C0D;
-  border-radius:22px; overflow:hidden; box-shadow:var(--shadow);
-  outline:1.5px solid var(--brass); outline-offset:10px;
-}
-.video-frame video{ display:block; width:100%; height:auto; aspect-ratio:576 / 1024; background:#150C0D; }
-@media (max-width:480px){ .video-frame{ max-width:min(340px, 82vw); outline-offset:8px; } }
-
-@media (prefers-reduced-motion: reduce){
-  .js .intro{ transition:none; }
 }
