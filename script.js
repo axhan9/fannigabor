@@ -22,7 +22,7 @@ const weddingConfig = {
   address: "9228 Halászi, Kőhídi utca 11",
   mapsUrl: "https://maps.app.goo.gl/MJSLYEREetqKAMKt9",
   phone: "+36 20 485 0832",
-  email: "annaesbence@gmail.com",
+  email: "szfanni990823@gmail.com",
   instagram: "@fannigabor",
   instagramUrl: "https://instagram.com/fannigabor",
   hashtag: "Fanni&Gábor Esküvő",
