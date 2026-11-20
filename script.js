@@ -154,7 +154,7 @@ function applyConfig() {
     const v = weddingConfig[el.dataset.config];
     if (v !== undefined) el.textContent = v;
   });
-  document.title = weddingConfig.coupleNames + ' — Esküvői meghívó';
+  document.title = weddingConfig.coupleNames + ' — Esküvő';
 
   const maps = $('#maps-link'); if (maps) maps.href = weddingConfig.mapsUrl;
   const ph = $('#contact-phone'); if (ph) ph.href = telHref(weddingConfig.phone);
