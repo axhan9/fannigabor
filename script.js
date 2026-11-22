@@ -29,7 +29,7 @@ const weddingConfig = {
 
   // Helyszíni szállás (élő számláló)
   lodging: {
-    total: 40,              // ennyi hellyel indul a számláló
+    total: 36,              // ennyi hellyel indul a számláló
     countChildren: true,    // true: a gyerekek is csökkentik a számlálót; false: csak a felnőttek
     lowThreshold: 8         // ennyi vagy kevesebb szabad helynél "Fogyóban" állapot
   }
