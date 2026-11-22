@@ -37,12 +37,15 @@ const weddingConfig = {
 
 /* Make.com webhook URL-ek. Üresen hagyva az oldal DEMÓ módban fut:
    az űrlapok "elküldöttnek" látszanak, de nem megy el semmi. */
+
+const WEBHOOK_URL = "https://hook.eu1.make.com/rfc1xr9bnolvep3ahs7a3y8qmeqe3hl8";
+
 const webhooks = {
-  rsvp: "",       // visszajelzés (ott leszek / nem tudok jönni)
+  rsvp: WEBHOOK_URL,       // visszajelzés (ott leszek / nem tudok jönni)
   /*music: "",      // zenei kérések* - nem kell*/
-  upload: "",     // vendégfotók (fájlfeltöltés)
-  message: "",    // vendégüzenetek
-  lodging: ""     // helyszíni szállás: "status" (szabad helyek) + "book" (foglalás) – lásd README.md
+  upload: WEBHOOK_URL,     // vendégfotók (fájlfeltöltés)
+  message: WEBHOOK_URL,    // vendégüzenetek
+  lodging: WEBHOOK_URL     // helyszíni szállás: "status" (szabad helyek) + "book" (foglalás) – lásd README.md
 };
 
 /* Szekciók ki/be kapcsolása (false = a szekció és a menüpontja eltűnik) */
