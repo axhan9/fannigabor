@@ -45,7 +45,7 @@ const webhooks = {
   /*music: "",      // zenei kérések* - nem kell*/
   upload: WEBHOOK_URL,     // vendégfotók (fájlfeltöltés)
   message: WEBHOOK_URL,    // vendégüzenetek
-  lodging: WEBHOOK_URL     // helyszíni szállás: "status" (szabad helyek) + "book" (foglalás) – lásd README.md
+  lodging: ""     // helyszíni szállás: "status" (szabad helyek) + "book" (foglalás) – lásd README.md
 };
 
 /* Szekciók ki/be kapcsolása (false = a szekció és a menüpontja eltűnik) */
